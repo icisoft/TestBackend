@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ContactRepository extends JpaRepository<Contact, Long> {
     
-    @Query("SELECT c FROM Contact c LEFT JOIN FETCH c.user u")
+    @Query("SELECT c FROM Contact c JOIN FETCH c.user u")
     public List<Contact> findWithUser();
     
 }

@@ -32,7 +32,7 @@ public class UserController {
     
     @GetMapping("user/contact")
     public List<User> indexWithContact() {
-        return this.userRepository.getWithContacts();
+        return this.userRepository.findWithContacts();
     }
     
     @GetMapping("user/{id}")
