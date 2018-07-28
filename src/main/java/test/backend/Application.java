@@ -6,9 +6,11 @@
 package test.backend;
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 /**
  *
@@ -23,7 +25,13 @@ public class Application {
     
     @Bean
     public Hibernate5Module getHibernateModuleBean() {
-        return new Hibernate5Module();
+        Hibernate5Module module = new Hibernate5Module();
+        return module;
+    }
+    
+    @Autowired
+    public void asd(MappingJackson2HttpMessageConverter m) {
+        System.out.println(m);
     }
     
 }

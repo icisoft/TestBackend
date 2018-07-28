@@ -6,18 +6,18 @@
 package test.backend.model;
 
 import java.util.List;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  *
  * @author Matías
  */
-@RepositoryRestResource
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM User u JOIN FETCH u.contacts c")
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.contacts c LEFT JOIN FETCH u.group LEFT JOIN FETCH u.posts p")
+    @EntityGraph(value = "User.posts", type = EntityGraph.EntityGraphType.LOAD)
     public List<User> findWithContacts();
 
 }

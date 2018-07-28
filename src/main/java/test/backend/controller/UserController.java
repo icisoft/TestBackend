@@ -31,7 +31,7 @@ public class UserController {
     }
     
     @GetMapping("user/contact")
-    public List<User> indexWithContact() {
+    public List indexWithContact() {
         return this.userRepository.findWithContacts();
     }
     

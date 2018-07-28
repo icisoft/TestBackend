@@ -8,8 +8,6 @@ package test.backend.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,41 +19,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author Matías
+ * @author matia
  */
 @Entity
-@Table(name = "user")
+@Table(name="table_post")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @NamedEntityGraphs(
-        @NamedEntityGraph(name = "User.posts", attributeNodes = {@NamedAttributeNode(value = "posts")})
+        @NamedEntityGraph(name = "Post.user", attributeNodes = {@NamedAttributeNode(value = "user")})
 )
-public class User implements Serializable {
-
+public class Post implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
+    
+    @Column(name="name")
     private String name;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Contact> contacts = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Set<Post> posts = new HashSet<>();
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
-    private Group group;
-
-    public User() {
-
+    @JoinColumn(name="user_id")
+    private User user;
+    
+    public Post() {
+        
     }
 
     public Long getId() {
@@ -74,28 +64,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Set<Contact> getContacts() {
-        return contacts;
+    public User getUser() {
+        return user;
     }
 
-    public void setContacts(Set<Contact> contacts) {
-        this.contacts = contacts;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
-    }
-
+    
 }
